@@ -1,6 +1,4 @@
 ﻿using LisaDoor.Network;
-using System.Diagnostics;
-using System.Drawing.Imaging;
 
 namespace LisaDoor.Modules
 {
