@@ -2,6 +2,11 @@
 
 namespace LisaDoor
 {
+    struct Consts
+    {
+        static public readonly string ServerIP = "127.0.0.1";
+
+    }
     internal class Program
     {
         static void Main(string[] args)

