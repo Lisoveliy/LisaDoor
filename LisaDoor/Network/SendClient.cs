@@ -4,15 +4,19 @@ namespace LisaDoor.Network
 {
     internal static class SendClient
     {
-        public static void SendPOST(FileStream file)
+        struct Consts
+        {
+            static public readonly string fileSendUri = "recievescr";
+        }
+        public static async void SendPOSTFile(FileStream file, string name, DateTime datetime)
         {
             using (var httpClient = new HttpClient())
             {
                 var content = new StreamContent(file);
                 var rescontent = new MultipartFormDataContent();
-                rescontent.Add(content, "filename", "filename");
-                rescontent.Add(new StringContent("DateTime"), "datetime");
-                httpClient.PostAsJsonAsync(LisaDoor.Consts.ServerIP, rescontent);
+                rescontent.Add(content, $"{name}.jpg", $"{name}.jpg");
+                rescontent.Add(new StringContent(datetime.ToString()), "datetime");
+                await httpClient.PostAsJsonAsync(LisaDoor.Consts.ServerIP + $"/{Consts.fileSendUri}", rescontent);
             }
         }
     }
